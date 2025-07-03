@@ -1,4 +1,5 @@
 // submit.js
+import { Button } from "./components/ui/button";
 
 export const SubmitButton = () => {
   return (
@@ -9,7 +10,7 @@ export const SubmitButton = () => {
         justifyContent: "center",
       }}
     >
-      <button variant="default">Click me</button>
+      <Button variant="default">Click me</Button>
     </div>
   );
 };

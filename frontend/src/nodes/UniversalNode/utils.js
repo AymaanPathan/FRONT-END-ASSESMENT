@@ -22,17 +22,23 @@ export const calculateDynamicDimensions = (text, fieldConfig, nodeConfig) => {
   temp.style.fontSize = "12px";
   temp.style.padding = "1px";
   temp.style.border = "1px solid #ccc";
-  temp.style.width = "1px";
+  temp.style.whiteSpace = "pre-wrap";
+  temp.style.wordWrap = "break-word";
   temp.value = text;
   document.body.appendChild(temp);
+
+  // Calculate width first based on content
+  const longestLine = Math.max(...text.split("\n").map((l) => l.length));
+  const estimatedWidth = Math.min(Math.max(longestLine * 7 + 40, 220), 400);
+
+  // Set the textarea width to the estimated width before measuring height
+  temp.style.width = estimatedWidth + "px";
 
   const scrollHeight = temp.scrollHeight;
   const lineHeight = 16;
   const lines = Math.max(3, Math.ceil(scrollHeight / lineHeight));
-  const longestLine = Math.max(...text.split("\n").map((l) => l.length));
-  const width = Math.min(Math.max(longestLine * 7 + 40, 220), 400);
-  const height = Math.max(140, lines * lineHeight + 100);
+  const height = Math.max(140, lines * lineHeight + 300);
 
   document.body.removeChild(temp);
-  return { width, height };
+  return { width: estimatedWidth, height };
 };

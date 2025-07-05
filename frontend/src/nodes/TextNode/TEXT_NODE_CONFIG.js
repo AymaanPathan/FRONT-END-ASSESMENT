@@ -3,6 +3,7 @@ import { Position } from "reactflow";
 export const TEXT_NODE_CONFIG = {
   title: "Text",
   description: "Text processing node with variable support",
+
   fields: [
     {
       name: "textContent",

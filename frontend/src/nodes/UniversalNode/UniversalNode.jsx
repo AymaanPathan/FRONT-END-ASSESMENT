@@ -29,7 +29,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
       : nodeConfig.height || "auto";
 
   return (
-    <div className="border border-zinc-700 rounded-lg shadow-2xl bg-gradient-to-br from-zinc-900/90 to-zinc-950/90">
+    <div className="border border-border rounded-lg shadow-2xl bg-gradient-to-br from-background/90 to-muted/90 dark:from-zinc-900/90 dark:to-zinc-950/90">
       <Card style={{ width: nodeWidth, height: nodeHeight, minHeight: 80 }}>
         {nodeConfig.handles
           ?.filter((h) => h.type === "target")
@@ -37,11 +37,11 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
         {dynamicHandles.map((h) => renderDynamicHandle(h, id))}
 
         <CardHeader>
-          <CardTitle className="text-sm text-center">
+          <CardTitle className="text-sm text-center text-foreground">
             {nodeConfig.title}
           </CardTitle>
           {nodeConfig.description && (
-            <CardDescription className="text-xs text-center">
+            <CardDescription className="text-xs text-center text-muted-foreground">
               {nodeConfig.description}
             </CardDescription>
           )}
@@ -49,10 +49,15 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
 
         <CardContent className="pt-3 space-y-4">
           {nodeConfig.title === "Text" && dynamicHandles.length > 0 && (
-            <div className="p-2 bg-emerald-950 border border-emerald-800 rounded">
-              <span className="text-xs text-emerald-300">Variables: </span>
+            <div className="p-2 bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 rounded">
+              <span className="text-xs text-emerald-700 dark:text-emerald-300">
+                Variables:{" "}
+              </span>
               {dynamicHandles.map((h) => (
-                <Badge key={h.label} className="ml-1 text-emerald-200">
+                <Badge
+                  key={h.label}
+                  className="ml-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700"
+                >
                   {h.label}
                 </Badge>
               ))}
@@ -60,7 +65,9 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
           )}
           {nodeConfig.fields?.map((field) => (
             <div key={field.name} className="space-y-2">
-              <Label className="text-xs font-semibold">{field.label}:</Label>
+              <Label className="text-xs font-semibold text-foreground">
+                {field.label}:
+              </Label>
               {renderInputControl(
                 field,
                 nodeFieldValues[field.name],

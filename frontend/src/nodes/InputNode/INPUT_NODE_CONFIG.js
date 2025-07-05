@@ -3,8 +3,6 @@ import { Position } from "reactflow";
 export const INPUT_NODE_CONFIG = {
   title: "Input",
   description: "Define input parameters",
-  width: 200,
-  height: 120,
   fields: [
     {
       name: "inputName",

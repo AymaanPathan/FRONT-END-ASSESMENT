@@ -3,8 +3,6 @@ import { Position } from "reactflow";
 export const LLM_NODE_CONFIG = {
   title: "LLM",
   description: "Large Language Model",
-  width: 200,
-  height: 100,
   fields: [],
   handles: [
     {

@@ -3,8 +3,6 @@ import { Position } from "reactflow";
 export const OUTPUT_NODE_CONFIG = {
   title: "Output",
   description: "Define output parameters",
-  width: 200,
-  height: 120,
   fields: [
     {
       name: "outputName",

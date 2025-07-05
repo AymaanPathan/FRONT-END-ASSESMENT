@@ -1,4 +1,3 @@
-// store.js
 import { checkIsDagOrNotApi } from "./api's/isDagOrNot.api";
 import { create } from "zustand";
 import {

@@ -1,4 +1,3 @@
-// toolbar.js
 import { Card } from "./components/ui/card";
 import { CardContent } from "./components/ui/card";
 import { DraggableNode } from "./draggableNode";

@@ -27,11 +27,9 @@ export const calculateDynamicDimensions = (text, fieldConfig, nodeConfig) => {
   temp.value = text;
   document.body.appendChild(temp);
 
-  // Calculate width first based on content
   const longestLine = Math.max(...text.split("\n").map((l) => l.length));
   const estimatedWidth = Math.min(Math.max(longestLine * 7 + 40, 220), 400);
 
-  // Set the textarea width to the estimated width before measuring height
   temp.style.width = estimatedWidth + "px";
 
   const scrollHeight = temp.scrollHeight;

@@ -1,4 +1,3 @@
-// theme-provider.jsx
 import { ThemeProvider } from "next-themes";
 
 export function AppThemeProvider({ children }) {

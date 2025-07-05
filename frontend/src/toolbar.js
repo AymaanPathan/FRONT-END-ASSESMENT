@@ -1,18 +1,12 @@
 // toolbar.js
-
+import { Card } from "./components/ui/card";
+import { CardContent } from "./components/ui/card";
 import { DraggableNode } from "./draggableNode";
 
 export const PipelineToolbar = () => {
   return (
-    <div style={{ padding: "10px" }}>
-      <div
-        style={{
-          marginTop: "20px",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px",
-        }}
-      >
+    <Card className="">
+      <CardContent className="py-4 flex flex-wrap gap-3">
         <DraggableNode type="customInput" label="Input" />
         <DraggableNode type="llm" label="LLM" />
         <DraggableNode type="customOutput" label="Output" />
@@ -22,7 +16,7 @@ export const PipelineToolbar = () => {
         <DraggableNode type="if_condition" label="If Condition" />
         <DraggableNode type="delay" label="Delay" />
         <DraggableNode type="slack" label="Slack Msg" />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };

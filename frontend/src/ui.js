@@ -99,10 +99,7 @@ export const PipelineUI = () => {
   }, []);
 
   return (
-    <div
-      ref={reactFlowWrapper}
-      className="w-full h-full bg-[#0d1117] text-white"
-    >
+    <div ref={reactFlowWrapper} className="w-full h-full   text-white">
       <ReactFlow
         nodes={nodes}
         edges={edges}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { NumberInput } from "../components/formFields/NumberInput";
 import { SelectInput } from "../components/formFields/SelectInput";
 import { TextInput } from "../components/formFields/TextInput";
@@ -31,9 +31,6 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
 
   // State for dynamic handles based on variables
   const [dynamicHandles, setDynamicHandles] = useState([]);
-
-  // Ref for measuring text content
-  const textMeasureRef = useRef(null);
 
   // Function to extract variables from text content
   const extractVariables = (text) => {
@@ -236,7 +233,6 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
     );
   };
 
-  // Use dynamic dimensions for text nodes, otherwise use config dimensions
   const nodeWidth =
     nodeConfig.title === "Text"
       ? dynamicDimensions.width
@@ -247,9 +243,9 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
       : nodeConfig.height || "auto";
 
   return (
-    <div className="dark">
+    <div className="border border-zinc-700 rounded-lg shadow-2xl backdrop-blur-sm bg-gradient-to-br from-zinc-900/90 to-zinc-950/90 hover:from-zinc-800/90 hover:to-zinc-900/90 transition-all duration-300 hover:shadow-cyan-500/20 hover:shadow-xl">
       <Card
-        className="bg-card border-border shadow-lg"
+        className="bg-zinc-900/80 border-zinc-700 shadow-inner ring-1 ring-zinc-600/30 backdrop-blur-sm"
         style={{
           width: nodeWidth,
           height: nodeHeight,
@@ -263,28 +259,28 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
 
         {dynamicHandles.map(renderDynamicHandle)}
 
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm text-center text-foreground">
+        <CardHeader className="pb-2 border-b border-zinc-800/50">
+          <CardTitle className="text-sm text-center text-zinc-100 font-semibold tracking-wide">
             {nodeConfig.title}
           </CardTitle>
           {nodeConfig.description && (
-            <CardDescription className="text-xs text-center text-muted-foreground">
+            <CardDescription className="text-xs text-center text-zinc-400 leading-relaxed">
               {nodeConfig.description}
             </CardDescription>
           )}
         </CardHeader>
 
-        <CardContent className="pt-0 space-y-3">
+        <CardContent className="pt-3 space-y-4">
           {/* Variables preview (for text nodes) */}
           {nodeConfig.title === "Text" && dynamicHandles.length > 0 && (
-            <div className="p-2 bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 rounded-md">
-              <div className="text-xs text-emerald-700 dark:text-emerald-300">
+            <div className="p-3 bg-gradient-to-r from-emerald-950/50 to-teal-950/50 border border-emerald-800/40 rounded-lg backdrop-blur-sm ring-1 ring-emerald-700/20">
+              <div className="text-xs text-emerald-300 font-medium">
                 Variables:{" "}
                 {dynamicHandles.map((h, i) => (
                   <Badge
                     key={h.label}
                     variant="secondary"
-                    className="ml-1 text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200"
+                    className="ml-1.5 text-xs bg-gradient-to-r from-emerald-900/70 to-teal-900/70 text-emerald-200 border border-emerald-700/40 shadow-sm hover:from-emerald-800/70 hover:to-teal-800/70 transition-all duration-200"
                   >
                     {h.label}
                   </Badge>
@@ -294,11 +290,11 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
           )}
 
           {nodeConfig.fields?.map((fieldConfig) => (
-            <div key={fieldConfig.name} className="space-y-1">
-              <Label className="text-xs font-medium text-foreground">
+            <div key={fieldConfig.name} className="space-y-2">
+              <Label className="text-xs font-semibold text-zinc-300 tracking-wide uppercase">
                 {fieldConfig.label}:
               </Label>
-              {renderInputControl(fieldConfig)}
+              <div className="relative">{renderInputControl(fieldConfig)}</div>
             </div>
           ))}
         </CardContent>

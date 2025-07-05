@@ -59,7 +59,7 @@ export const DraggableNode = ({ type, label }) => {
       onDragEnd={(event) => (event.target.style.cursor = "grab")}
       draggable
     >
-      <div className="min-w-[80px] h-[60px] flex items-center justify-center flex-col rounded-lg bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:border-gray-600 transition-colors p-3">
+      <div className="min-w-[80px] h-[60px] flex items-center justify-center flex-col rounded-lg border  hover:border-gray-600 transition-colors p-3">
         <Icon className={`h-4 w-4 mb-1 ${getNodeColor(type)}`} />
         <span className="text-white text-xs text-center">{label}</span>
       </div>

@@ -4,7 +4,7 @@ import { SubmitButton } from "./submit";
 
 function App() {
   return (
-    <div className="w-screen h-screen bg-[#0d1117] text-white flex flex-col overflow-hidden">
+    <div className="w-screen h-screen bg-background text-foreground font-sans dark flex flex-col overflow-hidden">
       <PipelineToolbar />
       <div className="flex-1 relative">
         <PipelineUI />

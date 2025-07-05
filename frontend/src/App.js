@@ -1,7 +1,7 @@
 import { PipelineToolbar } from "./toolbar";
 import { PipelineUI } from "./ui";
 import { SubmitButton } from "./submit";
-import { ThemeToggle } from "./components/ThemeToggle"; // adjust path as needed
+import { ThemeToggle } from "./components/theme/ThemeToggle";
 
 function App() {
   return (

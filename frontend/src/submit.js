@@ -1,40 +1,56 @@
-// submit.js
-import { Button } from "./components/ui/button";
+import { useState } from "react";
 import { useStore } from "./store";
-import axios from "axios";
-export const handleSubmit = async () => {
-  const { nodes, edges } = useStore.getState();
-
-  try {
-    const response = await axios.post("http://localhost:8000/pipelines/parse", {
-      nodes: nodes.map((n) => ({ id: n.id })),
-      edges: edges.map((e) => ({ source: e.source, target: e.target })),
-    });
-
-    const { num_nodes, num_edges, is_dag } = response.data;
-
-    alert(`📊 Backend Response:
-- Nodes: ${num_nodes}
-- Edges: ${num_edges}
-- DAG: ${is_dag ? "✅ Yes" : "❌ No (Cycle Detected)"}`);
-  } catch (error) {
-    console.error("❌ Pipeline submission failed:", error);
-    alert("❌ Failed to submit pipeline. Check console for details.");
-  }
-};
+import { Button } from "./components/ui/button";
+import { BarChart3 } from "lucide-react";
+import { ResultModal } from "./components/result/ResultModal";
 
 export const SubmitButton = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [result, setResult] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const submitPipeline = useStore((state) => state.submitPipeline);
+  const isSubmitting = useStore((state) => state.isSubmitting);
+
+  const handleSubmit = async () => {
+    try {
+      const resultMessage = await submitPipeline();
+      setResult(resultMessage);
+      setIsSuccess(true);
+      setModalOpen(true);
+    } catch (error) {
+      setResult(error.message || "An error occurred");
+      setIsSuccess(false);
+      setModalOpen(true);
+    }
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Button variant="default" onClick={handleSubmit}>
-        Click me
+    <>
+      <Button
+        onClick={handleSubmit}
+        disabled={isSubmitting}
+        className="shadow-lg hover:shadow-xl transition-all duration-200"
+      >
+        {isSubmitting ? (
+          <>
+            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+            Analyzing...
+          </>
+        ) : (
+          <>
+            <BarChart3 className="w-4 h-4 mr-2" />
+            Submit Pipeline
+          </>
+        )}
       </Button>
-    </div>
+
+      <ResultModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        result={result}
+        isSuccess={isSuccess}
+      />
+    </>
   );
 };

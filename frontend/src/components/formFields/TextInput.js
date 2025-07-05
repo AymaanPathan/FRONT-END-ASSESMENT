@@ -1,9 +1,11 @@
+import { Input } from "../../components/ui/input";
+
 export const TextInput = ({ config, value, onChange }) => (
-  <input
+  <Input
     type="text"
     value={value}
     onChange={(e) => onChange(e.target.value)}
     placeholder={config.placeholder}
-    style={{ width: "100%", marginBottom: "4px" }}
+    className="w-full mb-1 bg-background text-foreground border-border"
   />
 );

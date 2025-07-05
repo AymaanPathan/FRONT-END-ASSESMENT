@@ -1,5 +1,6 @@
+import { Input } from "../../components/ui/input";
 export const NumberInput = ({ config, value, onChange }) => (
-  <input
+  <Input
     type="number"
     value={value}
     onChange={(e) => onChange(e.target.value)}
@@ -7,6 +8,6 @@ export const NumberInput = ({ config, value, onChange }) => (
     max={config.max}
     step={config.step}
     placeholder={config.placeholder}
-    style={{ width: "100%", marginBottom: "4px" }}
+    className="w-full mb-1 bg-background text-foreground border-border"
   />
 );

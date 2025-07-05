@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Textarea } from "../../components/ui/textarea";
 
 export const TextareaInput = ({ config, value, onChange }) => {
   const textareaRef = useRef(null);
@@ -12,23 +13,16 @@ export const TextareaInput = ({ config, value, onChange }) => {
   }, [value]);
 
   return (
-    <textarea
+    <Textarea
       ref={textareaRef}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={config.placeholder}
       rows={config.rows || 3}
+      className="w-full mb-1 resize-none overflow-hidden bg-background text-foreground border-border text-xs leading-relaxed"
       style={{
-        width: "100%",
-        marginBottom: "4px",
-        resize: "none",
-        overflow: "hidden",
-        fontSize: "12px",
-        lineHeight: "1.4",
-        padding: "6px",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        fontFamily: "inherit",
+        minHeight: config.name === "textContent" ? "60px" : "auto",
+        ...config.style,
       }}
     />
   );

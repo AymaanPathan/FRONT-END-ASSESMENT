@@ -4,7 +4,13 @@ import { SelectInput } from "../components/formFields/SelectInput";
 import { TextInput } from "../components/formFields/TextInput";
 import { TextareaInput } from "../components/formFields/TextareaInput";
 import { Handle, Position } from "reactflow";
-
+import { Card } from "../components/ui/card";
+import { CardHeader } from "../components/ui/card";
+import { CardTitle } from "../components/ui/card";
+import { CardDescription } from "../components/ui/card";
+import { CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Label } from "../components/ui/label";
 export const UniversalNode = ({ id, data, nodeConfig }) => {
   const [nodeFieldValues, setNodeFieldValues] = useState(() => {
     const initialValues = {};
@@ -20,7 +26,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
   // State for dynamic dimensions (for text nodes)
   const [dynamicDimensions, setDynamicDimensions] = useState({
     width: nodeConfig.width || 200,
-    height: nodeConfig.height || "auto",
+    height: Math.min(nodeConfig.height || 200, 220),
   });
 
   // State for dynamic handles based on variables
@@ -106,7 +112,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
         id: `var-${variable}`,
         type: "target",
         position: Position.Left,
-        color: "#4CAF50",
+        color: "#10b981",
         topOffset: 60 + index * 25, // Offset from existing handles
         label: variable,
       }));
@@ -189,7 +195,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
         id={`${id}-${handleConfig.id}`}
         style={{
           top: handleConfig.topOffset,
-          background: handleConfig.color || "#555",
+          background: handleConfig.color || "#64748b",
           width: "8px",
           height: "8px",
         }}
@@ -206,7 +212,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
           id={`${id}-${handleConfig.id}`}
           style={{
             top: handleConfig.topOffset,
-            background: handleConfig.color || "#4CAF50",
+            background: handleConfig.color || "#10b981",
             width: "8px",
             height: "8px",
             left: "-4px",
@@ -219,7 +225,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
             left: "-60px",
             top: handleConfig.topOffset - 8,
             fontSize: "10px",
-            color: "#4CAF50",
+            color: "#10b981",
             fontWeight: "bold",
             whiteSpace: "nowrap",
           }}
@@ -241,88 +247,67 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
       : nodeConfig.height || "auto";
 
   return (
-    <div
-      style={{
-        width: nodeWidth,
-        height: nodeHeight,
-        minHeight: 80,
-        border: "1px solid #333",
-        borderRadius: "8px",
-        background: "white",
-        padding: "8px",
-        fontSize: "12px",
-        fontFamily: "Arial, sans-serif",
-        position: "relative",
-      }}
-    >
-      {/* Render all static input connection handles */}
-      {nodeConfig.handles
-        ?.filter((handle) => handle.type === "target")
-        .map(renderConnectionHandle)}
-
-      {dynamicHandles.map(renderDynamicHandle)}
-
-      <div
+    <div className="dark">
+      <Card
+        className="bg-card border-border shadow-lg"
         style={{
-          fontWeight: "bold",
-          marginBottom: "8px",
-          textAlign: "center",
-          borderBottom: "1px solid #eee",
-          paddingBottom: "4px",
+          width: nodeWidth,
+          height: nodeHeight,
+          minHeight: 80,
         }}
       >
-        {nodeConfig.title}
-      </div>
+        {/* Render all static input connection handles */}
+        {nodeConfig.handles
+          ?.filter((handle) => handle.type === "target")
+          .map(renderConnectionHandle)}
 
-      {nodeConfig.description && (
-        <div
-          style={{
-            fontSize: "10px",
-            color: "#666",
-            marginBottom: "8px",
-            textAlign: "center",
-          }}
-        >
-          {nodeConfig.description}
-        </div>
-      )}
+        {dynamicHandles.map(renderDynamicHandle)}
 
-      {/* Variables preview (for text nodes) */}
-      {nodeConfig.title === "Text" && dynamicHandles.length > 0 && (
-        <div
-          style={{
-            fontSize: "9px",
-            color: "#4CAF50",
-            marginBottom: "8px",
-            padding: "4px",
-            background: "#f0f8f0",
-            borderRadius: "4px",
-            border: "1px solid #e0e0e0",
-          }}
-        >
-          Variables: {dynamicHandles.map((h) => h.label).join(", ")}
-        </div>
-      )}
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm text-center text-foreground">
+            {nodeConfig.title}
+          </CardTitle>
+          {nodeConfig.description && (
+            <CardDescription className="text-xs text-center text-muted-foreground">
+              {nodeConfig.description}
+            </CardDescription>
+          )}
+        </CardHeader>
 
-      {nodeConfig.fields?.map((fieldConfig) => (
-        <div key={fieldConfig.name} style={{ marginBottom: "8px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "2px",
-              fontWeight: "bold",
-            }}
-          >
-            {fieldConfig.label}:
-          </label>
-          {renderInputControl(fieldConfig)}
-        </div>
-      ))}
+        <CardContent className="pt-0 space-y-3">
+          {/* Variables preview (for text nodes) */}
+          {nodeConfig.title === "Text" && dynamicHandles.length > 0 && (
+            <div className="p-2 bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 rounded-md">
+              <div className="text-xs text-emerald-700 dark:text-emerald-300">
+                Variables:{" "}
+                {dynamicHandles.map((h, i) => (
+                  <Badge
+                    key={h.label}
+                    variant="secondary"
+                    className="ml-1 text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200"
+                  >
+                    {h.label}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
 
-      {/* Render all output connection handles */}
-      {nodeConfig.handles
-        ?.filter((handle) => handle.type === "source")
-        .map(renderConnectionHandle)}
+          {nodeConfig.fields?.map((fieldConfig) => (
+            <div key={fieldConfig.name} className="space-y-1">
+              <Label className="text-xs font-medium text-foreground">
+                {fieldConfig.label}:
+              </Label>
+              {renderInputControl(fieldConfig)}
+            </div>
+          ))}
+        </CardContent>
+
+        {/* Render all output connection handles */}
+        {nodeConfig.handles
+          ?.filter((handle) => handle.type === "source")
+          .map(renderConnectionHandle)}
+      </Card>
     </div>
   );
 };

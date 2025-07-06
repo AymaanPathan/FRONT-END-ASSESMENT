@@ -30,7 +30,7 @@ def parse_pipeline(pipeline: str = Form(...)):
 @app.post("/pipelines/parse")
 async def parse_pipeline(data: PipelineData):
     if not data.nodes and not data.edges:
-        raise HTTPException(status_code=400, detail="Nodes and edges are required.")
+        raise HTTPException(status_code=400, detail="Nodes are required.")
     try: 
         print(data)
         G = nx.DiGraph()

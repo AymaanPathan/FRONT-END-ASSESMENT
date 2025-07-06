@@ -56,7 +56,7 @@ export const UniversalNode = ({ id, data, nodeConfig }) => {
               {dynamicHandles.map((h) => (
                 <Badge
                   key={h.label}
-                  className="ml-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700"
+                  className="ml-1 hover:bg-green-400 hover:text-white bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700"
                 >
                   {h.label}
                 </Badge>

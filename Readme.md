@@ -278,3 +278,17 @@ This automatically creates:
 - **FastAPI** for the robust backend framework
 - **NetworkX** for graph analysis capabilities
 - **Tailwind CSS** for the utility-first styling approach
+
+## 🖼️ Screenshot
+
+### Visual Pipeline Editor
+<img src="https://github.com/user-attachments/assets/ceb77779-4eed-4bb9-9558-591161e1cfb5" width="100%" alt="Pipeline UI" />
+
+### Dynamic Text Nodes with Variables
+<img width="1918" height="863" alt="Image" src="https://github.com/user-attachments/assets/62aeb056-d61c-4ac1-8e08-08a23f0e3447" />
+
+### Validation Result Modal
+<img width="1918" height="855" alt="Image" src="https://github.com/user-attachments/assets/c3f4db8e-4154-46e6-88c0-e64f1ce98bde" />
+
+### Dark Mode
+<img width="1918" height="852" alt="Image" src="https://github.com/user-attachments/assets/a0fe62b6-d390-4920-8179-3449565c1461" />
